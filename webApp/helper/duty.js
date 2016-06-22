@@ -8,11 +8,11 @@ var getAllDuties = function(callback){
       if(err) console.log(err);
 	  var duties = new Array(dutiesData.length);
 	  for(var i = 0; i<dutiesData.length; i++){
-		var newDuty = new Duty({
+		var newDuty = {
 			name: dutiesData[i].name,
 			doneBy: dutiesData[i].doneBy
-		  });
-		  duties.push(newDuty);
+		  };
+		  duties[i] = newDuty;
 	  }
       callback(duties);	  
     }
