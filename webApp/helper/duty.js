@@ -4,9 +4,17 @@ var Duty = model.duty;
 
 var getAllDuties = function(callback){
   Duty.find({},
-    function(err, duties){
+    function(err, dutiesData){
       if(err) console.log(err);
-      callback(duties);
+	  var duties = new Array(dutiesData.length);
+	  for(var i = 0; i<dutiesData.length; i++){
+		var newDuty = new Duty({
+			name: dutiesData[i].name,
+			doneBy: dutiesData[i].doneBy
+		  });
+		  duties.push(newDuty);
+	  }
+      callback(duties);	  
     }
   )};
 
