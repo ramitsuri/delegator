@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 var model = require('../models/duty.js');
+var residentModel = require('../models/residents.js');
+
 var Duty = model.duty;
+var Resident = residentModel.resident;
 
 var getAllDuties = function(callback){
   Duty.find({},
@@ -57,9 +60,43 @@ var editDuty = function(dutyName, duty, callback){
 		});
 }
 
+var updateDuties = function(callback){
+	var duties;
+	var residents;		
+			Resident.find({}).sort({localID: 'asc'}).exec(function(err, residentData){
+				if(err) console.log(err);
+				residents = residentData;
+				Duty.find({}).sort({localID: 'asc'}).exec(
+					function(err, dutiesData){
+						if(err)console.log(err);
+						duties = dutiesData;
+						var firstResident = residents.filter(function(item) {
+												return item.name === duties[0].doneBy;
+							});
+						var j = firstResident[0].localID - 1;
+						
+						for(var i=0; i<duties.length; i++){
+							j = j + 1;
+							if(j === residents.length)
+								j = 0;
+						Duty.findOneAndUpdate({localID: duties[i].localID}, {name:duties[i].name, doneBy: residents[j].name, localID: duties[i].localID, lastDoneBy: duties[i].doneBy}, 
+							function(err, duty){
+								if(err) console.log(err);									
+										
+							});	
+							//console.log("name:" + duties[i].name + "doneBy: " + residents[j].name, "localID: " + duties[i].localID, " lastDoneBy: " + duties[i].doneBy);
+						}
+							
+						});								
+			});
+		
+		callback("duties changed");
+	};
+
 module.exports = {
   getAllDuties: getAllDuties,
   getDuty: getDuty,
   editDuty: editDuty,
-  addDuty: addDuty
+  addDuty: addDuty,
+  updateDuties: updateDuties
 }
