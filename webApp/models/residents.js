@@ -1,7 +1,10 @@
 var mongoose = require('mongoose');
 
 var residentSchema = mongoose.Schema({
-  name: String
+  localID: Number,
+  name: String,
+  fine: Number
+  
 });
 
 var resident = mongoose.model('resident', residentSchema);

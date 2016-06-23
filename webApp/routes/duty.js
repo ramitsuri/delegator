@@ -26,4 +26,11 @@ router.post('/addmultiple', function(request, response){
   });
 });
 
+router.put('/:name', function(request, response){
+  var duty = request.body;
+  helper.editDuty(name, duty, function(data){
+    response.send(data);
+  });
+});
+
 module.exports = router;
