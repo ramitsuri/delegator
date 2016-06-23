@@ -10,7 +10,9 @@ var getAllDuties = function(callback){
 	  for(var i = 0; i<dutiesData.length; i++){
 		var newDuty = {
 			name: dutiesData[i].name,
-			doneBy: dutiesData[i].doneBy
+			doneBy: dutiesData[i].doneBy,
+			localID: dutiesData[i].localID,
+			lastDoneBy: dutiesData[i].lastDoneBy
 		  };
 		  duties[i] = newDuty;
 	  }
@@ -22,7 +24,9 @@ var getAllDuties = function(callback){
 var addDuty = function(duty, callback){
   var newDuty = new Duty({
     name: duty.name,
-    doneBy: duty.doneBy
+    doneBy: duty.doneBy,
+	localID: duty.localID,
+	lastDoneBy: duty.lastDoneBy
   });
 
   newDuty.save(
@@ -32,8 +36,8 @@ var addDuty = function(duty, callback){
     });
 };
 
-var editDuty = function(name, duty, callback){
-	Duty.findOneAndUpdate({name: name}, {doneBy: duty.doneBy}, 
+var editDuty = function(id, duty, callback){
+	Duty.findOneAndUpdate({localID: id}, {name:duty.name, doneBy: duty.doneBy, localID: duty.localID, lastDoneBy: duty.lastDoneBy}, 
 		function(err, duty){
 			if(err) console.log(err);
 			callback("updated");

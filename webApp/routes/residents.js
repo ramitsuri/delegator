@@ -19,4 +19,12 @@ router.post('/', function(request, response){
   });
 });
 
+router.put('/:id', function(request, response){
+  var resident = request.body;
+  var id = request.params.id;
+  helper.editResident(id, resident, function(data){
+    response.send(data);
+  });
+});
+
 module.exports = router;

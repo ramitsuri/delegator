@@ -20,15 +20,16 @@ router.post('/', function(request, response){
 });
 
 router.post('/addmultiple', function(request, response){
-  var duties = request.body;
+  var duties = request.body;  
   helper.addMultiple(duties, function(data){
     response.send(data);
   });
 });
 
-router.put('/:name', function(request, response){
+router.put('/:id', function(request, response){
   var duty = request.body;
-  helper.editDuty(name, duty, function(data){
+  var id = request.params.id;
+  helper.editDuty(id, duty, function(data){
     response.send(data);
   });
 });

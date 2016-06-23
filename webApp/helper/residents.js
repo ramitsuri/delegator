@@ -34,7 +34,16 @@ var addResident = function(resident, callback){
     });
 };
 
+var editResident = function(id, resident, callback){
+	Resident.findOneAndUpdate({localID: id}, {name:resident.name, fine: resident.fine, localID: resident.localID}, 
+		function(err, resident){
+			if(err) console.log(err);
+			callback("updated");
+		});
+}
+
 module.exports = {
   getAllResidents: getAllResidents,
-  addResident: addResident
+  addResident: addResident,
+  editResident: editResident
 }

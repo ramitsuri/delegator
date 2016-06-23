@@ -8,4 +8,4 @@ var residentSchema = mongoose.Schema({
 });
 
 var resident = mongoose.model('resident', residentSchema);
-export.resident = resident;
+exports.resident = resident;
