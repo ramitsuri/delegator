@@ -19,7 +19,20 @@ var getAllDuties = function(callback){
       callback(duties);	  
     }
   )};
-
+  
+var getDuty = function(dutyName, callback){
+  Duty.findOne({name: dutyName},
+    function(err, dutyData){
+      if(err) console.log(err);	  	 
+		var newDuty = {
+			localID: dutyData.localID,
+			name: dutyData.name,
+			doneBy: dutyData.doneBy,
+			lastDoneBy: dutyData.lastDoneBy
+		  };		  
+      callback(newDuty);	  
+    }
+  )};
 
 var addDuty = function(duty, callback){
   var newDuty = new Duty({
@@ -36,8 +49,8 @@ var addDuty = function(duty, callback){
     });
 };
 
-var editDuty = function(id, duty, callback){
-	Duty.findOneAndUpdate({localID: id}, {name:duty.name, doneBy: duty.doneBy, localID: duty.localID, lastDoneBy: duty.lastDoneBy}, 
+var editDuty = function(dutyName, duty, callback){
+	Duty.findOneAndUpdate({name: dutyName}, {name:duty.name, doneBy: duty.doneBy, localID: duty.localID, lastDoneBy: duty.lastDoneBy}, 
 		function(err, duty){
 			if(err) console.log(err);
 			callback("updated");
@@ -46,6 +59,7 @@ var editDuty = function(id, duty, callback){
 
 module.exports = {
   getAllDuties: getAllDuties,
+  getDuty: getDuty,
   editDuty: editDuty,
   addDuty: addDuty
 }

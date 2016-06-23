@@ -12,6 +12,13 @@ router.get('/all', function(request, response){
   });
 });
 
+router.get('/:name', function(request, response){
+	var name = request.params.name;
+	helper.getDuty(name, function(duty){
+    response.send(duty);
+  });
+});
+
 router.post('/', function(request, response){
   var duty = request.body;
   helper.addDuty(duty, function(data){
@@ -26,10 +33,10 @@ router.post('/addmultiple', function(request, response){
   });
 });
 
-router.put('/:id', function(request, response){
+router.put('/:name', function(request, response){
   var duty = request.body;
-  var id = request.params.id;
-  helper.editDuty(id, duty, function(data){
+  var name = request.params.name;
+  helper.editDuty(name, duty, function(data){
     response.send(data);
   });
 });
