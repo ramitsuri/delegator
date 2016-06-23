@@ -33,7 +33,7 @@ var addDuty = function(duty, callback){
 };
 
 var editDuty = function(name, duty, callback){
-	var Duty.findOneAndUpdate({name: name}, {doneBy: duty.doneBy}, 
+	Duty.findOneAndUpdate({name: name}, {doneBy: duty.doneBy}, 
 		function(err, duty){
 			if(err) console.log(err);
 			callback("updated");
