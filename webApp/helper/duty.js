@@ -1,6 +1,12 @@
 var mongoose = require('mongoose');
 var model = require('../models/duty.js');
 var residentModel = require('../models/residents.js');
+var schedule = require('node-schedule');
+var notificationHelper = require('./notification.js');
+
+var rule = new schedule.RecurrenceRule();
+rule.hour = 1;
+rule.minute = 0;
 
 var Duty = model.duty;
 var Resident = residentModel.resident;
@@ -82,7 +88,7 @@ var updateDuties = function(callback){
 						Duty.findOneAndUpdate({localID: duties[i].localID}, {name:duties[i].name, doneBy: residents[j].name, localID: duties[i].localID, lastDoneBy: duties[i].doneBy}, 
 							function(err, duty){
 								if(err) console.log(err);									
-										
+								notificationHelper.sendNotification(residents[j].fcmToken, duties[i].name);
 							});	
 							//console.log("name:" + duties[i].name + "doneBy: " + residents[j].name, "localID: " + duties[i].localID, " lastDoneBy: " + duties[i].doneBy);
 						}
@@ -92,6 +98,12 @@ var updateDuties = function(callback){
 		
 		callback("duties changed");
 	};
+	
+var runScheduledChangeOfDuty = function(){
+	var j = schedule.scheduleJob(rule, function(){
+  console.log('The answer to life, the universe, and everything!');
+  });
+} 
 
 module.exports = {
   getAllDuties: getAllDuties,
