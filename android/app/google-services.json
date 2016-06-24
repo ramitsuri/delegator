@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1059931108884",
+    "firebase_url": "https://delegator-fb1a0.firebaseio.com",
+    "project_id": "delegator-fb1a0",
+    "storage_bucket": "delegator-fb1a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059931108884:android:c5b08b5e0a317b9b",
+        "android_client_info": {
+          "package_name": "com.ramitsuri.delegator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059931108884-0cfj1ksc66kgvknrqcnivr80tmldg8gd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFvCMzUYrcF-QV_youn7D5CJEJZgrQVEE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
