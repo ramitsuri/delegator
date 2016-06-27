@@ -1,4 +1,5 @@
 var express = require('express');
+var cronJob = require('cron').CronJob;
 var bodyParser = require('body-parser');
 var helper = require('../helper/duty.js');
 
@@ -27,13 +28,13 @@ router.post('/', function(request, response){
 });
 
 router.post('/addmultiple', function(request, response){
-  var duties = request.body;  
+  var duties = request.body;
   helper.addMultiple(duties, function(data){
     response.send(data);
   });
 });
 
-router.put('/:name', function(request, response){  
+router.put('/:name', function(request, response){
   var duty = request.body;
   var name = request.params.name;
   helper.editDuty(name, duty, function(data){
@@ -42,9 +43,16 @@ router.put('/:name', function(request, response){
 });
 
 router.put('/update/all', function(request, response){
-	helper.updateDuties(function(data){
-		response.send(data);
-	});
+  var job = new CronJob('00 00 1 * * 0-6', function() {
+    helper.updateDuties();
+    response.send('started');
+  }, function () {
+
+  },
+  true, /* Start the job right now */
+  'America/New_York' /* Time zone of this job. */
+);
+
 });
 
 module.exports = router;

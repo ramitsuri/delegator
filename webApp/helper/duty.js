@@ -25,21 +25,21 @@ var getAllDuties = function(callback){
 		  };
 		  duties[i] = newDuty;
 	  }
-      callback(duties);	  
+      callback(duties);
     }
   )};
-  
+
 var getDuty = function(dutyName, callback){
   Duty.findOne({name: dutyName},
     function(err, dutyData){
-      if(err) console.log(err);	  	 
+      if(err) console.log(err);
 		var newDuty = {
 			localID: dutyData.localID,
 			name: dutyData.name,
 			doneBy: dutyData.doneBy,
 			lastDoneBy: dutyData.lastDoneBy
-		  };		  
-      callback(newDuty);	  
+		  };
+      callback(newDuty);
     }
   )};
 
@@ -59,16 +59,16 @@ var addDuty = function(duty, callback){
 };
 
 var editDuty = function(dutyName, duty, callback){
-	Duty.findOneAndUpdate({name: dutyName}, {name:duty.name, doneBy: duty.doneBy, localID: duty.localID, lastDoneBy: duty.lastDoneBy}, 
+	Duty.findOneAndUpdate({name: dutyName}, {name:duty.name, doneBy: duty.doneBy, localID: duty.localID, lastDoneBy: duty.lastDoneBy},
 		function(err, duty){
 			if(err) console.log(err);
 			callback("updated");
 		});
 }
 
-var updateDuties = function(callback){
+var updateDuties = function(){
 	var duties;
-	var residents;		
+	var residents;
 			Resident.find({}).sort({localID: 'asc'}).exec(function(err, residentData){
 				if(err) console.log(err);
 				residents = residentData;
@@ -80,30 +80,31 @@ var updateDuties = function(callback){
 												return item.name === duties[0].doneBy;
 							});
 						var j = firstResident[0].localID - 1;
-						
+
 						for(var i=0; i<duties.length; i++){
 							j = j + 1;
 							if(j === residents.length)
 								j = 0;
-						Duty.findOneAndUpdate({localID: duties[i].localID}, {name:duties[i].name, doneBy: residents[j].name, localID: duties[i].localID, lastDoneBy: duties[i].doneBy}, 
+						Duty.findOneAndUpdate({localID: duties[i].localID}, {name:duties[i].name, doneBy: residents[j].name, localID: duties[i].localID, lastDoneBy: duties[i].doneBy},
 							function(err, duty){
-								if(err) console.log(err);									
-								notificationHelper.sendNotification(residents[j].fcmToken, duties[i].name);
-							});	
+								if(err) console.log(err);
+								//notificationHelper.sendNotification(residents[j].fcmToken, duties[i].name);
+                console.log('updated');
+							});
 							//console.log("name:" + duties[i].name + "doneBy: " + residents[j].name, "localID: " + duties[i].localID, " lastDoneBy: " + duties[i].doneBy);
 						}
-							
-						});								
+
+						});
 			});
-		
-		callback("duties changed");
+
+		//callback("duties changed");
 	};
-	
+
 var runScheduledChangeOfDuty = function(){
 	var j = schedule.scheduleJob(rule, function(){
   console.log('The answer to life, the universe, and everything!');
   });
-} 
+}
 
 module.exports = {
   getAllDuties: getAllDuties,
