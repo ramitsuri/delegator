@@ -43,16 +43,16 @@ router.put('/:name', function(request, response){
 });
 
 router.put('/update/all', function(request, response){
-  var job = new CronJob('00 00 1 * * 0-6', function() {
+  var job = new cronJob('00 00 1 * * 0-6', function() {
     helper.updateDuties();
-    response.send('started');
+    //response.send('started');
   }, function () {
 
   },
   true, /* Start the job right now */
   'America/New_York' /* Time zone of this job. */
 );
-
+response.send('started');
 });
 
 module.exports = router;
