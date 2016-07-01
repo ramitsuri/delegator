@@ -89,7 +89,7 @@ var updateDuties = function(){
 							function(err, duty){
 								if(err) console.log(err);
 								//notificationHelper.sendNotification(residents[j].fcmToken, duties[i].name);
-                console.log('updated');
+                //console.log('updated');
 							});
 							//console.log("name:" + duties[i].name + "doneBy: " + residents[j].name, "localID: " + duties[i].localID, " lastDoneBy: " + duties[i].doneBy);
 						}

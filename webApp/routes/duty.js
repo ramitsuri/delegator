@@ -5,6 +5,17 @@ var helper = require('../helper/duty.js');
 
 var router = express.Router();
 
+
+var updateJob = new cronJob({
+	cronTime: '00 00 1 * * *',
+	onTick: function() {
+    helper.updateDuties();
+	console.log('duties updated')
+  },
+  start: false
+  });
+
+
 router.use(bodyParser.json());
 
 router.get('/all', function(request, response){
@@ -43,16 +54,8 @@ router.put('/:name', function(request, response){
 });
 
 router.put('/update/all', function(request, response){
-  var job = new cronJob('00 00 1 * * 0-6', function() {
-    helper.updateDuties();
-    //response.send('started');
-  }, function () {
-
-  },
-  true, /* Start the job right now */
-  'America/New_York' /* Time zone of this job. */
-);
-response.send('started');
+	updateJob.start();  
+	response.send('started');
 });
 
 module.exports = router;
