@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    // Import Google Icon Font
+    link(href='http://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    // Import materialize.css
+    link(type='text/css', rel='stylesheet', href='css/materialize.min.css', media='screen,projection')
+    // Let browser know website is optimized for mobile
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  body
+    ul.collapsible(data-collapsible='expandable')
+      li
+        .collapsible-header #{duties[0].name} : #{duties[0].doneBy}
+        .collapsible-body(style='display: none; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;')
+          p
+            | Last done by: #{duties[0].lastDoneBy}
+      li
+        .collapsible-header #{duties[1].name} : #{duties[1].doneBy}
+        .collapsible-body(style='display: none; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;')
+          p
+            | Last done by: #{duties[1].lastDoneBy}
+      li
+        .collapsible-header #{duties[2].name} : #{duties[2].doneBy}
+        .collapsible-body(style='display: none; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;')
+          p
+            | Last done by: #{duties[2].lastDoneBy}
+      li
+        .collapsible-header #{duties[3].name} : #{duties[3].doneBy}
+        .collapsible-body(style='display: none; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;')
+          p
+            | Last done by: #{duties[3].lastDoneBy}
+      li
+        .collapsible-header #{duties[4].name} : #{duties[4].doneBy}
+        .collapsible-body(style='display: none; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;')
+          p
+            | Last done by: #{duties[4].lastDoneBy}
+    // Import jQuery before materialize.js
+    script(type='text/javascript', src='https://code.jquery.com/jquery-2.1.1.min.js')
+    script(type='text/javascript', src='js/materialize.min.js')

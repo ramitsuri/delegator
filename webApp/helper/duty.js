@@ -1,12 +1,11 @@
 var mongoose = require('mongoose');
 var model = require('../models/duty.js');
 var residentModel = require('../models/residents.js');
-var schedule = require('node-schedule');
 var notificationHelper = require('./notification.js');
 
-var rule = new schedule.RecurrenceRule();
-rule.hour = 1;
-rule.minute = 0;
+// var rule = new schedule.RecurrenceRule();
+// rule.hour = 1;
+// rule.minute = 0;
 
 var Duty = model.duty;
 var Resident = residentModel.resident;
@@ -100,11 +99,11 @@ var updateDuties = function(){
 		//callback("duties changed");
 	};
 
-var runScheduledChangeOfDuty = function(){
-	var j = schedule.scheduleJob(rule, function(){
-  console.log('The answer to life, the universe, and everything!');
-  });
-}
+// var runScheduledChangeOfDuty = function(){
+// 	var j = schedule.scheduleJob(rule, function(){
+//   console.log('The answer to life, the universe, and everything!');
+//   });
+// }
 
 module.exports = {
   getAllDuties: getAllDuties,
