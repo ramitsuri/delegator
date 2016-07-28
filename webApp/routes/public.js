@@ -12,4 +12,13 @@ router.get('/', function(request, response){
     });
 });
 
+router.get('/everglades', function(request, response){
+  
+    response.render(path.join(__dirname, '../public/views/','everglades.jade'));
+    //console.log(path.join(__dirname, '../public/views','index.jade'));
+  
+});
+
+
+
 module.exports = router;
